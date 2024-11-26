@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
 body {
@@ -17,4 +17,9 @@ h2, h3 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+
+main {
+    margin-bottom: 15px;
 }

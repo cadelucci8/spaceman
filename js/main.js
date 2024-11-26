@@ -1,8 +1,8 @@
 /*----- constants -----*/
-
+const WORD_LIST = ['STARSHIP', 'ASTEROID', 'ORBITAL'];
 
 /*----- state variables -----*/
-let word, guesses, winner;
+let word, guessesRemaining, winner;
 
 /*----- cached elements  -----*/
 
@@ -11,3 +11,15 @@ let word, guesses, winner;
 
 
 /*----- functions -----*/
+initialize();
+
+function initialize() {
+    word = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
+    guessesRemaining = 12;
+    winner = null;
+    render();
+}
+
+function render() {
+    
+}
