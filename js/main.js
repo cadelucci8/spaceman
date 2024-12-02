@@ -1,24 +1,22 @@
 /*----- constants -----*/
 const WORD_LIST = ['STARSHIP', 'ASTEROID', 'ORBITAL'];
-
+const MAX_GUESSES = 13;
 /*----- state variables -----*/
-let Hiddenword, guessesRemaining, guessedLetters, incorrectLetters;
+let hiddenword, guess, wrongLetters;
 
 /*----- cached elements  -----*/
 const message = document.querySelector('h2');
 const playAgainButton = document.querySelector('#reset-button');
-guessesRemaining = document.querySelector('p-gusses');
 /*----- event listeners -----*/
 playAgainButton.addEventListener('click', init);
-document.getElementById('board').addEventListener('click', handleGuess);
+document.getElementById('keyboard').addEventListener('click', handleGuess);
 /*----- functions -----*/
 init();
 
 function init() {
-    Hiddenword = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
-    guessesRemaining = 12;
-    guessedLetters = [];
-    incorrectLetters = [];
+    hiddenword = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
+    guess = '________';
+    wrongLetters = [];
     render();
 }
 
@@ -29,7 +27,7 @@ function render() {
 }
 
 function handleGuess(evt) {
-    return guessesRemaining -= 1;
+    console.log(guess);
 }
 
 function renderButtons() {
@@ -37,5 +35,5 @@ function renderButtons() {
 }
 
 function renderMessage() {
-
+    
 }
