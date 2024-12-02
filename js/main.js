@@ -6,6 +6,7 @@ let hiddenWord, guess, wrongLetters;
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h2');
 const keyBoardEl = document.querySelector('#keyboard');
+const btns = keyBoardEl.querySelectorAll('button');
 const playAgainBtnEl = document.querySelector('#reset-button');
 const wordEl = document.querySelector('#word-display');
 const spacemanImageEl = document.querySelector('#spaceman');
@@ -42,20 +43,27 @@ function handleGuess(evt) {
             updatedGuess += hiddenWord[i] === letter ? letter : guess[i];
         }
         guess = updatedGuess;
-        } else {
-            wrongLetters.push(letter);
-        }
+    } else {
+        wrongLetters.push(letter);
+    }
     render();
 }
 
 function renderButtons() {
- 
+    btns.forEach(btn => {
+        const letter = btn.textContent;
+        if (guess.includes(letter) || wrongLetters.includes(letter)) {
+            btn.disabled = true;
+        } else {
+            btn.disabled = false;
+        }
+    });
 }
 
 function renderMessage() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
-    } else if (wrongLetters.length >= 5) {
+    } else if (wrongLetters.length >= 7) {
         messageEl.innerText = "Read a book, bum!";
     }
 }
