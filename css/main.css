@@ -19,10 +19,6 @@ h2 {
     align-items: center;
 }
 
-#word-display {
-    margin-bottom: 15px;
-}
-
 main {
-    margin-bottom: 15px;
+    margin: 15px 0 15px 0;
 }

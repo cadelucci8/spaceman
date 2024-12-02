@@ -24,7 +24,6 @@ function init() {
 
 function render() {
     renderWord();
-    handleGuess();
     renderButtons();
     renderMessage();
 }
@@ -34,7 +33,20 @@ function renderWord() {
 }
 
 function handleGuess(evt) {
-    
+    if (evt.target.tagName !== 'BUTTON') return;
+    const letter = evt.target.textContent;
+    if (hiddenWord.includes(letter)) {
+        let updatedGuess = '';
+        for (let i = 0; i < hiddenWord.length; i++) {
+            updatedGuess += hiddenWord[i] === letter ? letter : guess[i];
+        }
+        guess = updatedGuess;
+    } else {
+        if (!wrongLetters.includes(letter)) {
+            wrongLetters.push(letter);
+        }
+    }
+    render();
 }
 
 function renderButtons() {
