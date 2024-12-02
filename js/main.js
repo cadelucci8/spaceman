@@ -19,6 +19,7 @@ function init() {
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '________';
     wrongLetters = [];
+    messageEl.innerText = "Yo! Choose a letter."
     render();
 }
 
@@ -41,11 +42,9 @@ function handleGuess(evt) {
             updatedGuess += hiddenWord[i] === letter ? letter : guess[i];
         }
         guess = updatedGuess;
-    } else {
-        if (!wrongLetters.includes(letter)) {
+        } else {
             wrongLetters.push(letter);
         }
-    }
     render();
 }
 
@@ -54,5 +53,9 @@ function renderButtons() {
 }
 
 function renderMessage() {
-    
+    if (guess === hiddenWord) {
+        messageEl.innerText = "Wow, you're an absolute scholar!";
+    } else if (wrongLetters.length >= 5) {
+        messageEl.innerText = "Read a book, bum!";
+    }
 }
