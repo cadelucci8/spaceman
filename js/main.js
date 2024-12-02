@@ -1,37 +1,44 @@
 /*----- constants -----*/
 const WORD_LIST = ['STARSHIP', 'ASTEROID', 'ORBITAL'];
-const MAX_GUESSES = 13;
 /*----- state variables -----*/
-let hiddenword, guess, wrongLetters;
+let hiddenWord, guess, wrongLetters;
 
 /*----- cached elements  -----*/
-const message = document.querySelector('h2');
-const playAgainButton = document.querySelector('#reset-button');
+const messageEl = document.querySelector('h2');
+const keyBoardEl = document.querySelector('#keyboard');
+const playAgainBtnEl = document.querySelector('#reset-button');
+const wordEl = document.querySelector('#word-display');
+const spacemanImageEl = document.querySelector('#spaceman');
 /*----- event listeners -----*/
-playAgainButton.addEventListener('click', init);
-document.getElementById('keyboard').addEventListener('click', handleGuess);
+keyBoardEl.addEventListener('click', handleGuess);
+playAgainBtnEl.addEventListener('click', init);
 /*----- functions -----*/
 init();
 
 function init() {
-    hiddenword = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
+    hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '________';
     wrongLetters = [];
     render();
 }
 
 function render() {
+    renderWord();
     handleGuess();
     renderButtons();
     renderMessage();
 }
 
+function renderWord() {
+    wordEl.innerHTML = guess.split('').join(' ');
+}
+
 function handleGuess(evt) {
-    console.log(guess);
+    
 }
 
 function renderButtons() {
-
+ 
 }
 
 function renderMessage() {
