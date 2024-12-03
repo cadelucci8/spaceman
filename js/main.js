@@ -20,14 +20,13 @@ function init() {
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '________';
     wrongLetters = [];
-    messageEl.innerText = "Yo! Choose a letter."
     render();
 }
 
 function render() {
     renderWord();
     renderButtons();
-    renderMessage();
+    renderGameover();
 }
 
 function renderWord() {
@@ -35,7 +34,7 @@ function renderWord() {
 }
 
 function handleGuess(evt) {
-    if (evt.target.tagName !== 'BUTTON') return;
+    if (evt.target.tagName !== 'BUTTON') return; 
     const letter = evt.target.textContent;
     if (hiddenWord.includes(letter)) {
         let updatedGuess = '';
@@ -60,10 +59,12 @@ function renderButtons() {
     });
 }
 
-function renderMessage() {
+function renderGameover() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
     } else if (wrongLetters.length >= 7) {
         messageEl.innerText = "Read a book, bum!";
+    } else {
+        messageEl.innerText = `Yo! Choose a letter. ${7 - wrongLetters.length} strikes and you're out.`
     }
 }
