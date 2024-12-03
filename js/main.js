@@ -1,5 +1,49 @@
 /*----- constants -----*/
-const WORD_LIST = ['STARSHIP', 'ASTEROID', 'ORBITAL'];
+const WORD_LIST = [
+    "ASTRONAUT",
+    "GALAXY",
+    "NEBULA",
+    "PLANET",
+    "STARS",
+    "ORBIT",
+    "COSMOS",
+    "TELESCOPE",
+    "UNIVERSE",
+    "COMET",
+    "METEOR",
+    "ASTEROID",
+    "SUPERNOVA",
+    "SATELLITE",
+    "MOON",
+    "SUN",
+    "ROCKET",
+    "SPACESHIP",
+    "GRAVITY",
+    "VACUUM",
+    "LIGHTYEAR",
+    "ALIEN",
+    "ASTRONOMY",
+    "CONSTELLATION",
+    "MILKYWAY",
+    "SOLARSYSTEM",
+    "LUNAR",
+    "ECLIPSE",
+    "AURORA",
+    "HABITABLE",
+    "INTERSTELLAR",
+    "GALACTIC",
+    "ASTROPHYSICS",
+    "SPACEWALK",
+    "SPACESTATION",
+    "DARKMATTER",
+    "LIGHTSPEED",
+    "ATMOSPHERE",
+    "GRAVITATIONAL",
+    "PULSAR",
+    "QUASAR",
+    "SPACEPROBE",
+    "CRATER",
+    "ZENITH"];
 const MAX_WRONG_GUESSES = 6;
 /*----- state variables -----*/
 let hiddenWord, guess, wrongLetters;
@@ -21,7 +65,7 @@ init();
 
 function init() {
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
-    guess = '________';
+    guess = '_'.repeat(hiddenWord.length);
     wrongLetters = [];
     render();
 }
