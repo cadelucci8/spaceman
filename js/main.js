@@ -1,7 +1,8 @@
 /*----- constants -----*/
 const WORD_LIST = ['STARSHIP', 'ASTEROID', 'ORBITAL'];
+const MAX_WRONG_GUESSES = 6;
 /*----- state variables -----*/
-let hiddenWord, guess, wrongLetters, curFrame;
+let hiddenWord, guess, wrongLetters;
 
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h2');
@@ -19,7 +20,6 @@ playAgainBtnEl.addEventListener('click', init);
 init();
 
 function init() {
-    curFrame = 0;
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '________';
     wrongLetters = [];
@@ -56,13 +56,13 @@ function handleGuess(evt) {
 }
 
 function renderImg() {
-    imgEl.src = `imgs/spaceman-${curFrame}.png`;
+    imgEl.src = `imgs/spaceman-${wrongLetters.length}.png`;
     imgBtnEls.forEach(function(btn) {
         btn.disabled = false;
         btn.style.backgroundColor = 'white';
     });
-    imgBtnEls[curFrame].disabled = true;
-    imgBtnEls[curFrame].style.backgroundColor = 'paleblue';
+    imgBtnEls[wrongLetters.length].disabled = true;
+    imgBtnEls[wrongLetters.length].style.backgroundColor = 'paleblue';
 }
 
 function renderWord() {
@@ -83,9 +83,9 @@ function renderButtons() {
 function renderGameover() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
-    } else if (wrongLetters.length >= 7) {
+    } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
         messageEl.innerText = "Read a book, bum!";
     } else {
-        messageEl.innerText = `Yo! Choose a letter. ${6 - wrongLetters.length} strikes and you're out.`
+        messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you're out.`
     }
 }
