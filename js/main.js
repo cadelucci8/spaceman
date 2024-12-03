@@ -80,7 +80,7 @@ function render() {
 function handleBtnClick(evt) {
     const btn = evt.target;
     if (!imgBtnEls.includes(btn)) return;
-    curFrame = parseInt(btn.textContent);
+    wrongLetters.length = parseInt(btn.textContent);
     render();
 }
 
@@ -116,7 +116,7 @@ function renderWord() {
 function renderButtons() {
     btns.forEach(btn => {
         const letter = btn.textContent;
-        if (guess.includes(letter) || wrongLetters.includes(letter)) {
+        if (guess.includes(letter) || wrongLetters.includes(letter) || guess === hiddenWord || wrongLetters.length >= MAX_WRONG_GUESSES) {
             btn.disabled = true;
         } else {
             btn.disabled = false;
@@ -130,6 +130,6 @@ function renderGameover() {
     } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
         messageEl.innerText = "Read a book, loser!";
     } else {
-        messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you're out.`
+        messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you lose.`
     }
 }
