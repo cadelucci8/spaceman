@@ -1,7 +1,7 @@
 /*----- constants -----*/
 const WORD_LIST = ['STARSHIP', 'ASTEROID', 'ORBITAL'];
 /*----- state variables -----*/
-let hiddenWord, guess, wrongLetters;
+let hiddenWord, guess, wrongLetters, curFrame;
 
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h2');
@@ -9,14 +9,17 @@ const keyBoardEl = document.querySelector('#keyboard');
 const btns = keyBoardEl.querySelectorAll('button');
 const playAgainBtnEl = document.querySelector('#reset-button');
 const wordEl = document.querySelector('#word-display');
-const spacemanImageEl = document.querySelector('#spaceman');
+const imgEl = document.querySelector('img');
+const imgBtnEls = [...document.querySelectorAll('#btns-container > button')];
 /*----- event listeners -----*/
+document.getElementById('btns-container').addEventListener('click', handleBtnClick);
 keyBoardEl.addEventListener('click', handleGuess);
 playAgainBtnEl.addEventListener('click', init);
 /*----- functions -----*/
 init();
 
 function init() {
+    curFrame = 0;
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '________';
     wrongLetters = [];
@@ -24,13 +27,17 @@ function init() {
 }
 
 function render() {
+    renderImg();
     renderWord();
     renderButtons();
     renderGameover();
 }
 
-function renderWord() {
-    wordEl.innerHTML = guess.split('').join(' ');
+function handleBtnClick(evt) {
+    const btn = evt.target;
+    if (!imgBtnEls.includes(btn)) return;
+    curFrame = parseInt(btn.textContent);
+    render();
 }
 
 function handleGuess(evt) {
@@ -46,6 +53,20 @@ function handleGuess(evt) {
         wrongLetters.push(letter);
     }
     render();
+}
+
+function renderImg() {
+    imgEl.src = `imgs/spaceman-${curFrame}.png`;
+    imgBtnEls.forEach(function(btn) {
+        btn.disabled = false;
+        btn.style.backgroundColor = 'white';
+    });
+    imgBtnEls[curFrame].disabled = true;
+    imgBtnEls[curFrame].style.backgroundColor = 'paleblue';
+}
+
+function renderWord() {
+    wordEl.innerHTML = guess.split('').join(' ');
 }
 
 function renderButtons() {
@@ -65,6 +86,6 @@ function renderGameover() {
     } else if (wrongLetters.length >= 7) {
         messageEl.innerText = "Read a book, bum!";
     } else {
-        messageEl.innerText = `Yo! Choose a letter. ${7 - wrongLetters.length} strikes and you're out.`
+        messageEl.innerText = `Yo! Choose a letter. ${6 - wrongLetters.length} strikes and you're out.`
     }
 }

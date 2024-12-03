@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 body {
@@ -23,3 +23,6 @@ main {
     margin: 15px 0 15px 0;
 }
 
+img {
+    margin: 15px 0 25px 0;
+}
