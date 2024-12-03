@@ -84,7 +84,7 @@ function renderGameover() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
     } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
-        messageEl.innerText = "Read a book, bum!";
+        messageEl.innerText = "Read a book, loser!";
     } else {
         messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you're out.`
     }
