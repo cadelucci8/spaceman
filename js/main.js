@@ -1,4 +1,9 @@
 /*----- constants -----*/
+const BACKGROUND_AUDIO = new Audio('audio/relaxing-guitar-loop-v5-245859.mp3');
+const RIGHT_GUESS_AUDIO = new Audio('audio/wrong-answer-129254.mp3');
+const WRONG_GUESS_AUDIO = new Audio('audio/error-4-199275.mp3');
+const LAST_STRIKE_AUDIO = new Audio('audio/sci-fi-sound-effect-designed-circuits-hum-10-200831.mp3');
+const PLAY_AGAIN_AUDIO = new Audio('audio/glitch-sound-232391.mp3');
 const WORD_LIST = [
     "ASTRONAUT",
     "GALAXY",
@@ -68,6 +73,9 @@ function init() {
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '_'.repeat(hiddenWord.length);
     wrongLetters = [];
+    PLAY_AGAIN_AUDIO.currentTime = 0;
+    PLAY_AGAIN_AUDIO.volume = .007;
+    PLAY_AGAIN_AUDIO.play();
     render();
 }
 
@@ -86,7 +94,7 @@ function handleBtnClick(evt) {
 }
 
 function handleGuess(evt) {
-    if (evt.target.tagName !== 'BUTTON') return; 
+    if (evt.target.tagName !== 'BUTTON') return;
     const letter = evt.target.textContent;
     if (hiddenWord.includes(letter)) {
         let updatedGuess = '';
@@ -118,6 +126,7 @@ function renderButtons() {
     btns.forEach(btn => {
         const letter = btn.textContent;
         if (guess.includes(letter) || wrongLetters.includes(letter) || guess === hiddenWord || wrongLetters.length >= MAX_WRONG_GUESSES) {
+            RIGHT_GUESS_AUDIO.play();
             btn.disabled = true;
         } else {
             btn.disabled = false;
