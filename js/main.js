@@ -1,9 +1,10 @@
 /*----- constants -----*/
-const BACKGROUND_AUDIO = new Audio('audio/relaxing-guitar-loop-v5-245859.mp3');
+const WINNING_AUDIO = new Audio('audio/relaxing-guitar-loop-v5-245859.mp3');
 const RIGHT_GUESS_AUDIO = new Audio('audio/wrong-answer-129254.mp3');
 const WRONG_GUESS_AUDIO = new Audio('audio/error-4-199275.mp3');
 const LAST_STRIKE_AUDIO = new Audio('audio/sci-fi-sound-effect-designed-circuits-hum-10-200831.mp3');
 const PLAY_AGAIN_AUDIO = new Audio('audio/glitch-sound-232391.mp3');
+const LOSING_AUDIO = new Audio('audio/game-over-transition-fx-178632.mp3');
 const WORD_LIST = [
     "ASTRONAUT",
     "GALAXY",
@@ -73,8 +74,10 @@ function init() {
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '_'.repeat(hiddenWord.length);
     wrongLetters = [];
+    WINNING_AUDIO.pause();
+    LOSING_AUDIO.pause();
     PLAY_AGAIN_AUDIO.currentTime = 0;
-    PLAY_AGAIN_AUDIO.volume = .007;
+    PLAY_AGAIN_AUDIO.volume = .015;
     PLAY_AGAIN_AUDIO.play();
     render();
 }
@@ -99,11 +102,21 @@ function handleGuess(evt) {
     if (hiddenWord.includes(letter)) {
         let updatedGuess = '';
         for (let i = 0; i < hiddenWord.length; i++) {
-            updatedGuess += hiddenWord[i] === letter ? letter : guess[i];
+            if (hiddenWord[i] === letter) {
+                updatedGuess += hiddenWord[i]
+                RIGHT_GUESS_AUDIO.currentTime = 0;
+                RIGHT_GUESS_AUDIO.volume = .02;
+                RIGHT_GUESS_AUDIO.play();
+            } else {
+                updatedGuess += guess[i];
+            }
         }
         guess = updatedGuess;
     } else {
         wrongLetters.push(letter);
+        WRONG_GUESS_AUDIO.currentTime = 0;
+        WRONG_GUESS_AUDIO.volume = .04;
+        WRONG_GUESS_AUDIO.play();
     }
     render();
 }
@@ -126,7 +139,6 @@ function renderButtons() {
     btns.forEach(btn => {
         const letter = btn.textContent;
         if (guess.includes(letter) || wrongLetters.includes(letter) || guess === hiddenWord || wrongLetters.length >= MAX_WRONG_GUESSES) {
-            RIGHT_GUESS_AUDIO.play();
             btn.disabled = true;
         } else {
             btn.disabled = false;
@@ -137,8 +149,18 @@ function renderButtons() {
 function renderGameover() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
+        RIGHT_GUESS_AUDIO.pause();
+        WRONG_GUESS_AUDIO.pause();
+        WINNING_AUDIO.currentTime = 0;
+        WINNING_AUDIO.volume = .02;
+        WINNING_AUDIO.play();
     } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
         messageEl.innerText = "Read a book, loser!";
+        RIGHT_GUESS_AUDIO.pause();
+        WRONG_GUESS_AUDIO.pause();
+        LOSING_AUDIO.currentTime = 0;
+        LOSING_AUDIO.volume = .07;
+        LOSING_AUDIO.play();
     } else {
         messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you lose.`
     }
