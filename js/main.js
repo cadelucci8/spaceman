@@ -168,7 +168,7 @@ function renderGameover() {
         LAST_STRIKE_AUDIO.pause();
         RIGHT_GUESS_AUDIO.pause();
         WRONG_GUESS_AUDIO.pause();
-        WINNING_AUDIO.currentTime = 0;
+        WINNING_AUDIO.currentTime = 9.75;
         WINNING_AUDIO.volume = .02;
         WINNING_AUDIO.play();
     } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
