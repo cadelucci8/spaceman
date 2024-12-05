@@ -1,0 +1,24 @@
+Spaceman Pseudocode:
+
+1. Pick a word from an array to be the hidden word
+	-store a few words of 'x' length in an array in the beginning
+	-select a word by randomly selecting an index of the array
+
+2. Guess by clicking a letter
+	-add event listener that covers each button selection
+
+3. Confirm if the guess was correct/incorrect
+	-compare letter selection to hidden word in stored array
+
+4. Keep track of guessed letters
+	-update and display number of guesses
+
+5. Show which letters have been previously chosen on UI
+	-change letter button to a certain color for a correct guess
+	-change letter button to a certain color for an incorrect guess
+
+6. Update Spaceman pictures if guess was incorrect
+
+7. Win/loss: if hidden word was revealed, player won. If maximum number of guesses was reached, player lost.
+
+8. Display win/loss message
