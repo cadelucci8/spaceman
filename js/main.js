@@ -77,7 +77,7 @@ function init() {
     WINNING_AUDIO.pause();
     LOSING_AUDIO.pause();
     PLAY_AGAIN_AUDIO.currentTime = 0;
-    PLAY_AGAIN_AUDIO.volume = .015;
+    PLAY_AGAIN_AUDIO.volume = .01;
     PLAY_AGAIN_AUDIO.play();
     render();
 }
