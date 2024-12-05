@@ -1,4 +1,5 @@
 /*----- constants -----*/
+const BACKGROUND_AUDIO = new Audio('assets/audio/space-72679.mp3');
 const WINNING_AUDIO = new Audio('assets/audio/relaxing-guitar-loop-v5-245859.mp3');
 const RIGHT_GUESS_AUDIO = new Audio('assets/audio/wrong-answer-129254.mp3');
 const WRONG_GUESS_AUDIO = new Audio('assets/audio/error-4-199275.mp3');
@@ -78,6 +79,7 @@ function init() {
     LAST_STRIKE_AUDIO.pause();
     WINNING_AUDIO.pause();
     LOSING_AUDIO.pause();
+    BACKGROUND_AUDIO.currentTime = 0;
     PLAY_AGAIN_AUDIO.currentTime = 0;
     PLAY_AGAIN_AUDIO.volume = .01;
     PLAY_AGAIN_AUDIO.play();
@@ -85,6 +87,7 @@ function init() {
 }
 
 function render() {
+    renderBackGroundAudio();
     renderImg();
     renderWord();
     renderButtons();
@@ -128,6 +131,12 @@ function handleGuess(evt) {
     render();
 }
 
+function renderBackGroundAudio() {
+    BACKGROUND_AUDIO.loop = true;
+    BACKGROUND_AUDIO.volume = 0.01;
+    BACKGROUND_AUDIO.play();
+}
+
 function renderImg() {
     imgEl.src = `assets/imgs/spaceman-${wrongLetters.length}.png`;
     imgBtnEls.forEach(function(btn) {
@@ -167,6 +176,7 @@ function renderLastStrikeAudio() {
 function renderGameover() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
+        BACKGROUND_AUDIO.pause();
         LAST_STRIKE_AUDIO.pause();
         RIGHT_GUESS_AUDIO.pause();
         WRONG_GUESS_AUDIO.pause();
@@ -175,6 +185,7 @@ function renderGameover() {
         WINNING_AUDIO.play();
     } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
         messageEl.innerText = "Read a book, loser!";
+        BACKGROUND_AUDIO.pause();
         LAST_STRIKE_AUDIO.pause();
         RIGHT_GUESS_AUDIO.pause();
         WRONG_GUESS_AUDIO.pause();
