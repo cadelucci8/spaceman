@@ -107,6 +107,7 @@ function handleGuess(evt) {
         for (let i = 0; i < hiddenWord.length; i++) {
             if (hiddenWord[i] === letter) {
                 updatedGuess += hiddenWord[i]
+                PLAY_AGAIN_AUDIO.pause();
                 LAST_STRIKE_AUDIO.pause();
                 RIGHT_GUESS_AUDIO.currentTime = 0;
                 RIGHT_GUESS_AUDIO.volume = .02;
@@ -118,6 +119,7 @@ function handleGuess(evt) {
         guess = updatedGuess;
     } else {
         wrongLetters.push(letter);
+        PLAY_AGAIN_AUDIO.pause();
         LAST_STRIKE_AUDIO.pause();
         WRONG_GUESS_AUDIO.currentTime = 0;
         WRONG_GUESS_AUDIO.volume = .03;
