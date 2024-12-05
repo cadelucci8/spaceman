@@ -53,7 +53,7 @@ const WORD_LIST = [
     "MERCURY"];
 const MAX_WRONG_GUESSES = 6;
 /*----- state variables -----*/
-let hiddenWord, guess, wrongLetters;
+let hiddenWord, guess, wrongLetters, lastStrikePlayed;
 
 /*----- cached elements  -----*/
 const messageEl = document.querySelector('h2');
@@ -74,6 +74,7 @@ function init() {
     hiddenWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)]
     guess = '_'.repeat(hiddenWord.length);
     wrongLetters = [];
+    lastStrikePlayed = false;
     LAST_STRIKE_AUDIO.pause();
     WINNING_AUDIO.pause();
     LOSING_AUDIO.pause();
@@ -87,7 +88,7 @@ function render() {
     renderImg();
     renderWord();
     renderButtons();
-    renderLastStrike();
+    renderLastStrikeAudio();
     renderGameover();
 }
 
@@ -106,6 +107,7 @@ function handleGuess(evt) {
         for (let i = 0; i < hiddenWord.length; i++) {
             if (hiddenWord[i] === letter) {
                 updatedGuess += hiddenWord[i]
+                LAST_STRIKE_AUDIO.pause();
                 RIGHT_GUESS_AUDIO.currentTime = 0;
                 RIGHT_GUESS_AUDIO.volume = .02;
                 RIGHT_GUESS_AUDIO.play();
@@ -116,6 +118,7 @@ function handleGuess(evt) {
         guess = updatedGuess;
     } else {
         wrongLetters.push(letter);
+        LAST_STRIKE_AUDIO.pause();
         WRONG_GUESS_AUDIO.currentTime = 0;
         WRONG_GUESS_AUDIO.volume = .03;
         WRONG_GUESS_AUDIO.play();
@@ -148,13 +151,14 @@ function renderButtons() {
     });
 }
 
-function renderLastStrike() {
-    if (wrongLetters.length === 5) {
+function renderLastStrikeAudio() {
+    if (wrongLetters.length === 5 && !lastStrikePlayed) {
         RIGHT_GUESS_AUDIO.pause();
         WRONG_GUESS_AUDIO.pause();
         LAST_STRIKE_AUDIO.currentTime = 2;
         LAST_STRIKE_AUDIO.volume = .04;
         LAST_STRIKE_AUDIO.play();
+        lastStrikePlayed = true;
     } else return;
 }
 
@@ -175,6 +179,8 @@ function renderGameover() {
         LOSING_AUDIO.currentTime = 0;
         LOSING_AUDIO.volume = .07;
         LOSING_AUDIO.play();
+    } else if (wrongLetters.length === 5) {
+        messageEl.innerText = "You're on your last strike. No pressure."
     } else {
         messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you lose.`
     }
