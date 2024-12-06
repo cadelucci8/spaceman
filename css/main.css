@@ -65,10 +65,17 @@ img {
     height: 35px;
     width: 125px;
     font-size: larger;
-    color: aliceblue;
+    color: black;
     border-color: aliceblue;
     background-color: rgb(209, 86, 86);
+    cursor: pointer; 
 }
+
+#reset-button:hover {
+    background-color: rgb(230, 168, 168);
+    transform: scale(1.1);
+}
+
 
 #keyboard > button:disabled {
     visibility: hidden;
