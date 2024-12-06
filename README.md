@@ -4,7 +4,7 @@ SPACEMAN is a space-themed version of Hangman. A randomized hidden word is displ
 
 ## Screenshot
 
-https://1drv.ms/i/c/a2a7bee5062bf7c5/Eac1DPhN0UBBqwm8AU7obMwB5Ix8c3TAsBe07_K8G13fGw?e=1mC0M9
+https://1drv.ms/i/c/a2a7bee5062bf7c5/EXk73jrZK7dMiInYaavnoFIBALVzzq_mPXWzkV-9Xd0l_A?e=LDvGEP
 
 ## Technologies Used
 
