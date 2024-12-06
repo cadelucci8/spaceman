@@ -80,9 +80,10 @@ function init() {
     WINNING_AUDIO.pause();
     LOSING_AUDIO.pause();
     BACKGROUND_AUDIO.currentTime = 0;
-    PLAY_AGAIN_AUDIO.currentTime = 0;
+    PLAY_AGAIN_AUDIO.currentTime = 1.375;
     PLAY_AGAIN_AUDIO.volume = .01;
     PLAY_AGAIN_AUDIO.play();
+    messageEl.style.color = "aliceblue";
     render();
 }
 
@@ -144,7 +145,7 @@ function renderImg() {
         btn.style.backgroundColor = 'white';
     });
     imgBtnEls[wrongLetters.length].disabled = true;
-    imgBtnEls[wrongLetters.length].style.backgroundColor = 'paleblue';
+    imgBtnEls[wrongLetters.length].style.backgroundColor = 'gray';
 }
 
 function renderWord() {
@@ -176,15 +177,17 @@ function renderLastStrikeAudio() {
 function renderGameover() {
     if (guess === hiddenWord) {
         messageEl.innerText = "Wow, you're an absolute scholar!";
+        messageEl.style.color = "palegreen";
         BACKGROUND_AUDIO.pause();
         LAST_STRIKE_AUDIO.pause();
         RIGHT_GUESS_AUDIO.pause();
         WRONG_GUESS_AUDIO.pause();
-        WINNING_AUDIO.currentTime = 9.75;
+        WINNING_AUDIO.currentTime = 0;
         WINNING_AUDIO.volume = .02;
         WINNING_AUDIO.play();
     } else if (wrongLetters.length >= MAX_WRONG_GUESSES) {
         messageEl.innerText = "Read a book, loser!";
+        messageEl.style.color = "rgb(216, 120, 224)";
         BACKGROUND_AUDIO.pause();
         LAST_STRIKE_AUDIO.pause();
         RIGHT_GUESS_AUDIO.pause();
@@ -194,6 +197,7 @@ function renderGameover() {
         LOSING_AUDIO.play();
     } else if (wrongLetters.length === 5) {
         messageEl.innerText = "You're on your last strike. No pressure."
+        messageEl.style.color = "rgb(209, 86, 86)";
     } else {
         messageEl.innerText = `Yo! Choose a letter. ${MAX_WRONG_GUESSES - wrongLetters.length} strikes and you lose.`
     }
