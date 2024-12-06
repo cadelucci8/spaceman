@@ -4,7 +4,7 @@ SPACEMAN is a space-themed version of Hangman. A randomized hidden word is displ
 
 ## Screenshot
 
-<img src="screenshot.png" alt="Space-themed hangman game screenshot">
+<img src="./assets/imgs/screenshot.png" alt="Space-themed hangman game screenshot">
 
 ## Technologies Used
 
